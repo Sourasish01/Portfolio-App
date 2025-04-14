@@ -14,7 +14,7 @@ const menuLinks = [
 ];
 
 const Menu = () => {
-  const container = useRef(null);
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   
@@ -24,6 +24,8 @@ const Menu = () => {
   };
 
   const timeline = useRef();
+  const container = useRef(null);
+  
 
   useGSAP(() => {
     // Set initial hidden state
