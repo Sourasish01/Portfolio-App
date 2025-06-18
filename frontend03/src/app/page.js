@@ -16,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     if (loading) {
       const tl = gsap.timeline({
-        delay: 0.3,
+        delay: 0.25,
         defaults: { ease: "hop" },
       });
 
@@ -88,36 +88,65 @@ export default function Home() {
         {
           clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
           duration: 1,
-          stagger: 0.1,
+          stagger: 0.5,
           delay: 0.75,
+          y: "-100%",
           opacity: 0,
-          onComplete: () => {
-            setLoading(false); // ✅ Switch to main content here
-          },
+          onStart: () => {gsap.to(".hero-img", { scale: 1, duration: 2, ease: "hop" });},
         },
         "<"
       );
+
+      tl.to(
+        [".nav", ".line h1", ".line p"],
+        {
+          y: "0%",
+          duration: 1.5,
+          stagger: 0.2,
+        },
+        "<"
+      );
+
+      tl.to([".cta", ".cta-icon"], {
+        scale: 1,
+        duration: 1.5,
+        stagger: 0.75,
+        delay: 0.75,
+      }, "<");
+
+      tl.to(".cta-label p", {
+        y: "0%",
+        duration: 1.5,
+        delay: 0.5,
+      }, "<");
+
+
+      
+
+
+
     }
   }, [loading]);
 
   return (
     <>
       {loading ? (
-        <div className="fixed top-0 left-0 min-w-screen min-h-screen overflow-hidden z-2">
+      <div>  
+        <div className="fixed top-0 left-0 min-w-screen min-h-screen overflow-hidden z-20">
           <div className="absolute min-h-full min-w-full flex">
-            <div className="block clip-custom min-w-full min-h-full bg-[#303030]"></div>
-            <div className="block clip-custom min-w-full min-h-full bg-[#303030]"></div>
+            <div className="block clip-custom min-w-1/2 min-h-full bg-[#230707]"></div>
+            <div className="block clip-custom min-w-1/2 min-h-full bg-[#120b0b]"></div>
           </div>
 
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-1 overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-1 overflow-hidden p-1">
             <div className="word word-1 relative -left-1 ">
-              <h1 className="text-center text-white text-4xl leading-none transform -translate-y-6/5">
+              <h1 className="text-center text-white text-4xl leading-normal transform -translate-y-6/5">
                 <span className="font-medium italic antialiased font-pp">Personal</span>
               </h1>
             </div>
 
             <div className="word word-2 relative -right-1">
-              <h1 className="text-center text-white text-4xl leading-none transform translate-y-6/5">
+              <h1 className="text-center text-white text-4xl leading-normal transform translate-y-6/5">
                 <span className="font-medium italic antialiased font-pp">Portfolio</span>
               </h1>
             </div>
@@ -156,6 +185,58 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <div className=" relative min-h-screen min-w-screen overflow-hidden ">
+          <div className="hero-img absolute inset-0 scale-150 will-change-transform bg-[#303030] -z-10">
+
+
+          </div>
+
+          <div className="nav absolute top-0 w-full px-6 py-4 flex justify-between items-center z-10 ">
+            <div className="logo text-lg font-bold text-white">
+              Logo
+            </div>
+            <div className="nav-links flex gap-4">
+              {["Home", "About", "Contact"].map((link, i) => (
+              <div key={i} className="text-white transition font-medium">
+                {link}
+              </div>
+            ))}
+            </div>
+            <div className="btn flex w-24 h-10  rounded-md text-white justify-center items-center">
+              Button
+            </div>
+          </div>
+
+          <div className="header w-full h-full [padding-top:25svh] flex flex-col items-center gap-4">
+            <div className="hero-copy text-center">
+              <div className="line">
+                <h1><span className="text-5xl md:text-6xl font-semibold text-amber-900 font-pp italic">Rooted</span> in care.</h1>
+              </div>
+              <div className="line">
+                <h1>Grown with <span className="font-medium italic antialiased font-pp">kindness</span></h1>
+              </div>
+              <div className="line">
+                <p>Skincare that stays true to nature and to you.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="cta absolute left-1/2 bottom-12 transform -translate-x-1/2 scale-0 w-1/2 h-15 p-2 flex justify-end bg-white rounded-4xl will-change-transform">
+            <div className="cta-label absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <p className="text-black font-medium">View all products</p>
+            </div>
+            <div className="cta-icon relative min-h-full flex items-center justify-center bg-black rounded-4xl will-change-transform transform scale-0">
+              
+            </div>
+          </div>
+
+        </div>
+
+
+        
+
+      </div>  
       ) : (
         <div className="content">
           <h2>Welcome to My Portfolio</h2>
